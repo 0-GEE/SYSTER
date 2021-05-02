@@ -31,6 +31,9 @@ class Moderation(commands.Cog):
         print(time)
         flagged = False
         channel : discord.TextChannel = msg.channel
+        messageid = msg.id
+        await asyncio.sleep(0.5)
+        msg = await channel.fetch_message(messageid)
         try:
             # await asyncio.sleep(0.5)
             embeds : list[discord.Embed] = msg.embeds
