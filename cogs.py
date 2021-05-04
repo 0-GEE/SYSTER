@@ -247,6 +247,84 @@ class Util(commands.Cog):
         except Exception:
             await ctx.send("``an error occured.\n{}``".format(traceback.format_exc()))
             traceback.print_exc()
+
+    @commands.command(name='add', help='add a domain to the risk list')
+    @logger.catch
+    async def add(self, ctx : Context, *args):
+        auth : Member = ctx.author
+        if not helpers.is_admin(auth):
+            await ctx.send("You do not have permission for this command.")
+            return
+        if len(args) < 1:
+            await ctx.send("please specify a domain name and try again")
+            return
+        try:
+            guilds = dict()
+            with open(db_file, 'r') as f:
+                guilds : dict = json.load(f)
+                f.close()
+            msg_guild : Guild = ctx.guild
+            msg_guild_id = msg_guild.id
+            configs : dict = guilds.get(str(msg_guild_id), {})
+            if len(configs) == 0:
+                await ctx.send("Please run 'setup' command and try again")
+                return
+            caution_list : list[str] = list(configs["caution list"])
+            new_domain = str(args[0]).strip()
+            if caution_list.count(new_domain) > 0:
+                await ctx.send("Domain is already in list!")
+                return
+            caution_list.append(new_domain)
+            configs["caution list"] = caution_list
+            guilds[str(msg_guild_id)] = configs
+            with open(db_file, 'w') as f:
+                json.dump(guilds, f, indent=4)
+                f.close()
+            await ctx.send("Succesfully added ``{}`` to the risk list!".format(new_domain))
+        except Exception:
+            logging_channel : TextChannel = msg_guild.get_channel(int(configs["logging channel"]))
+            await logging_channel.send("``and error occurred.\n{}``".format(traceback.format_exc()))
+            await ctx.send("something went wrong. Check the log channel for details")
+            traceback.print_exc()
+
+    @commands.command(name='remove', help='remove a domain from the risk list')
+    @logger.catch
+    async def remove(self, ctx : Context, *args):
+        auth : Member = ctx.author
+        if not helpers.is_admin(auth):
+            await ctx.send("You do not have permission for this command")
+            return
+        if len(args) == 0:
+            await ctx.send("Please specify a domain and try again")
+            return
+        try:
+            guilds = dict()
+            with open(db_file, 'r') as f:
+                guilds : dict = json.load(f)
+                f.close()
+            msg_guild : Guild = ctx.guild
+            msg_guild_id = msg_guild.id
+            configs : dict = guilds.get(str(msg_guild_id), {})
+            if len(configs) == 0:
+                await ctx.send("Please run 'setup' and try again")
+                return
+            caution_list : list[str] = configs["caution list"]
+            target = str(args[0])
+            try:
+                caution_list.remove(target)
+                await ctx.send("Succesfully removed ``{}`` from the risk list!".format(target))
+            except Exception:
+                await ctx.send("domain ``{}`` not found in risk list".format(target))
+            configs["caution list"] = caution_list
+            guilds[str(msg_guild_id)] = configs
+            with open(db_file, 'w') as f:
+                json.dump(guilds, f, indent=4)
+                f.close()
+        except Exception:
+            await ctx.send("something went wrong. Check log channel for details")
+            logging_channel : TextChannel = msg_guild.get_channel(int(configs["logging channel"]))
+            await logging_channel.send("``an error occurred\n{}``".format(traceback.format_exc()))
+            traceback.print_exc()
         
         
 
