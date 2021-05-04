@@ -200,11 +200,53 @@ class Util(commands.Cog):
             with open(db_file, 'w') as f:
                 json.dump(guilds, f, indent=4)
                 f.close()
-            await ctx.send("Setup success! I am now ready for use in {}".format(msg_guild.name))
+            await ctx.send("Setup success! I am now ready for use in ``{}``".format(msg_guild.name))
         except Exception:
             traceback.print_exc()
             await ctx.send("``an error occured.\n{}``".format(traceback.format_exc()))
 
+    @commands.command(name='setlog', help='set logging channel for the bot')
+    @logger.catch
+    async def setlog(self, ctx : Context, *args):
+        auth : Member = ctx.author
+        if not helpers.is_admin(auth):
+            await ctx.send("You do not have permission for this command.")
+            return
+        if len(args) < 1:
+            await ctx.send("Please specify a channel by name and try again!")
+            return
+        guilds = dict()
+        with open(db_file, 'r') as f:
+            guilds : dict = json.load(f)
+            f.close()
+        msg_guild : Guild = ctx.guild
+        msg_guild_id = msg_guild.id
+        configs : dict = guilds.get(str(msg_guild_id), {})
+        if len(configs) == 0:
+            await ctx.send("Run 'setup' and try again!")
+            return
+        logging_channel_name = str(args[0])
+        logging_channel : TextChannel = None
+        found = False
+        msg_guild_channels : list[TextChannel] = msg_guild.channels
+        for channel in msg_guild_channels:
+            if channel.name == logging_channel_name:
+                logging_channel = channel
+                found = True
+                break
+        if not found:
+            await ctx.send("Channel ``{}`` not found.".format(logging_channel_name))
+            return
+        configs["logging channel"] = str(logging_channel.id)
+        guilds[str(msg_guild_id)] = configs
+        try:
+            with open(db_file, 'w') as f:
+                json.dump(guilds, f, indent=4)
+                f.close
+            await ctx.send("Successfully set logging channel to ``{}``!".format(logging_channel_name))
+        except Exception:
+            await ctx.send("``an error occured.\n{}``".format(traceback.format_exc()))
+            traceback.print_exc()
         
         
 
