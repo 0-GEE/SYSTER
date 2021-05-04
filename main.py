@@ -11,5 +11,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 bot = commands.Bot(command_prefix='%')
 
 bot.add_cog(cogs.Moderation(bot))
+bot.add_cog(cogs.Util(bot))
 
 bot.run(TOKEN)

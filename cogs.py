@@ -9,11 +9,17 @@ from discord.ext import commands
 from discord.ext.commands import bot
 import discord
 import os
+from discord.ext.commands.context import Context
 from discord.guild import Guild
+from discord.member import Member
 from discord.message import Message
+from discord.permissions import PermissionOverwrite
+from discord.role import Role
 import requests
 import pymp4parse
 import json
+import helpers
+from loguru import logger
 
 # sanitize_files = True
 
@@ -102,11 +108,11 @@ class Moderation(commands.Cog):
             traceback.print_exc()
 
     @commands.command(name='Ptoggle', help='toggles crash gif protection')
+    @logger.catch
     async def toggle(self, ctx : commands.Context):
         auth : discord.Member = ctx.author
         channel : discord.TextChannel = ctx.channel
-        perms = auth.guild_permissions
-        if not perms.administrator:
+        if not helpers.is_admin(auth):
             await ctx.send("you do not have permission for this command.")
             return
         msg_guild : Guild = ctx.guild
@@ -115,11 +121,11 @@ class Moderation(commands.Cog):
         with open(db_file, 'r') as f:
             guilds : dict = json.load(f)
             f.close()
-        configs : dict = guilds.get(str(msg_guild_id), {})
-        log_channel_id = int(configs["logging channel"])
+        configs : dict = guilds.get(str(msg_guild_id), {})  
         if len(configs) == 0:
             await ctx.send("Please run 'Setup' command and try again")
             return
+        log_channel_id = int(configs["logging channel"])
         if configs["crash protection"]:
             guilds[str(msg_guild_id)]["crash protection"] = False
             try:
@@ -130,7 +136,7 @@ class Moderation(commands.Cog):
             except Exception:
                 logging_channel : TextChannel = msg_guild.get_channel(log_channel_id)
                 await logging_channel.send("``{}``".format(traceback.format_exc()))
-                await channel.send("``and error occurred.``")
+                await channel.send("``an error occurred.``")
             return
         guilds[str(msg_guild_id)]["crash protection"] = True
         try:
@@ -141,7 +147,66 @@ class Moderation(commands.Cog):
         except Exception:
             logging_channel : TextChannel = msg_guild.get_channel(log_channel_id)
             await logging_channel.send("``{}``".format(traceback.format_exc()))
-            await channel.send("``and error occurred.``")
+            await channel.send("``an error occurred.``")
+
+class Util(commands.Cog):
+    def __init__(self, bot : commands.Bot) -> None:
+        self.bot = bot
+    @commands.command(name='setup', help='perform quick server config for the bot (specify logging server if applicable)')
+    @logger.catch
+    async def setup(self, ctx : Context, *args):
+        auth : Member = ctx.author
+        if not helpers.is_admin(auth):
+            await ctx.send("you do not have permission for this command")
+            return
+        try:
+            msg_guild : Guild = ctx.guild
+            msg_guild_id = msg_guild.id
+            guilds = dict()
+            with open(db_file, 'r') as f:
+                guilds : dict = json.load(f)
+                f.close()
+            configs : dict = guilds.get(str(msg_guild_id), {})
+            if len(configs) != 0:
+                await ctx.send("I am already configured for this server!")
+                return
+            configs["crash protection"] = True
+            configs["caution list"] = ["gfycat.com"]
+            if len(args) > 0:
+                logging_channel_name = str(args[0])
+                channels = msg_guild.text_channels
+                logging_channel : TextChannel = None
+                found = False
+                for channel in channels:
+                    if channel.name == logging_channel_name:
+                        logging_channel = channel
+                        found = True
+                        break
+                if not found:
+                    await ctx.send("Channel ``{}`` not found! Configuration aborted.".format(logging_channel_name))
+                    return
+                configs["logging channel"] = str(logging_channel.id)
+            else:
+                logging_channel : TextChannel = await msg_guild.create_text_channel(name='sys-log', 
+                                                                            reason="log channel was not specified at 'setup' command call")
+                msg_guild_roles : list[Role] = msg_guild.roles
+                for role in msg_guild_roles:
+                    if not role.permissions.administrator:
+                        await logging_channel.set_permissions(target=role, 
+                                                            read_messages=False,
+                                                            send_messages=False)
+                configs["logging channel"] = str(logging_channel.id)
+            guilds[str(msg_guild_id)] = configs
+            with open(db_file, 'w') as f:
+                json.dump(guilds, f, indent=4)
+                f.close()
+            await ctx.send("Setup success! I am now ready for use in {}".format(msg_guild.name))
+        except Exception:
+            traceback.print_exc()
+            await ctx.send("``an error occured.\n{}``".format(traceback.format_exc()))
+
+        
+        
 
 
     
