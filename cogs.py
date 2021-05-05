@@ -2,6 +2,7 @@ import asyncio
 from datetime import datetime
 import traceback
 from discord.channel import TextChannel
+from discord.colour import Color
 from discord.embeds import Embed
 from discord.ext import commands
 import discord
@@ -42,12 +43,13 @@ class Moderation(commands.Cog):
         log_channel_id = int(configs["logging channel"])
         print("logging channel's id: {}".format(log_channel_id))
         time = datetime.now()
-        time = "timestamp = {}:{}:{}".format(time.hour, time.minute, time.second)
-        print(time)
+        time = "{}:{}:{}".format(time.hour, time.minute, time.second)
+        print("at {} from {} in {}:\n  {}".format(time, msg.author, 
+                                                  channel.name, msg.content))
         flagged = False
 
         messageid = msg.id
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.9)
         msg = await channel.fetch_message(messageid)
         try:
             embeds: list[Embed] = msg.embeds
@@ -77,12 +79,15 @@ class Moderation(commands.Cog):
                         mdat = True
                     elif mdat:
                         await msg.delete()
-                        await channel.send("DO NOT SEND CRASH GIFS!")
+                        await channel.send("DO NOT SEND CRASH GIFS <@!{}>!".format(msg.author.id))
                         log_channel: TextChannel = msg_guild.get_channel(log_channel_id)
-                        await log_channel.send("``CRASH GIF DETECTED IN {} SENT BY {}#{}``".format(channel.name,
-                                                                                                   msg.author.name,
-                                                                                                   msg.author.discriminator))
-
+                        embed = Embed(title="Crash gif caught and handled in {}".format(channel.name),
+                                      color=Color.red())
+                        embed.add_field(name="Message author and channel",
+                                        value="{} in {}".format(msg.author.mention, channel.mention))
+                        embed.add_field(name="Message content", value=msg.content, inline=False)
+                        embed.add_field(name="url to malicious file", value=url, inline=False)
+                        await log_channel.send(embed=embed)
                         break
 
         except Exception:
@@ -210,7 +215,7 @@ class Util(commands.Cog):
         guilds[str(msg_guild_id)] = configs
         try:
             helpers.save_guilds(guilds)
-            await ctx.send("Successfully set logging channel to ``{}``!".format(logging_channel_name))
+            await ctx.send("Successfully set logging channel to {}!".format(logging_channel.mention))
         except Exception:
             await ctx.send("``an error occured.\n{}``".format(traceback.format_exc()))
             traceback.print_exc()
