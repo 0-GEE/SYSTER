@@ -95,7 +95,7 @@ class Moderation(commands.Cog):
             await log_channel.send("``{}``".format(traceback.format_exc()))
             traceback.print_exc()
 
-    @commands.command(name='Ptoggle', help='toggles crash gif protection')
+    @commands.command(name='toggle', help='toggles crash gif protection')
     @logger.catch
     async def toggle(self, ctx: commands.Context):
         auth: discord.Member = ctx.author
@@ -192,28 +192,28 @@ class Util(commands.Cog):
         if len(args) < 1:
             await ctx.send("Please specify a channel by name and try again!")
             return
-        guilds = helpers.load_guilds()
-        msg_guild: Guild = ctx.guild
-        msg_guild_id = msg_guild.id
-        configs: dict = guilds.get(str(msg_guild_id), {})
-        if len(configs) == 0:
-            await ctx.send("Run 'setup' and try again!")
-            return
-        logging_channel_name = str(args[0])
-        logging_channel: TextChannel = None
-        found = False
-        msg_guild_channels: list[TextChannel] = msg_guild.channels
-        for channel in msg_guild_channels:
-            if channel.name == logging_channel_name:
-                logging_channel = channel
-                found = True
-                break
-        if not found:
-            await ctx.send("Channel ``{}`` not found.".format(logging_channel_name))
-            return
-        configs["logging channel"] = str(logging_channel.id)
-        guilds[str(msg_guild_id)] = configs
         try:
+            guilds = helpers.load_guilds()
+            msg_guild: Guild = ctx.guild
+            msg_guild_id = msg_guild.id
+            configs: dict = guilds.get(str(msg_guild_id), {})
+            if len(configs) == 0:
+                await ctx.send("Run 'setup' and try again!")
+                return
+            logging_channel_name = str(args[0])
+            logging_channel: TextChannel = None
+            found = False
+            msg_guild_channels: list[TextChannel] = msg_guild.channels
+            for channel in msg_guild_channels:
+                if channel.name == logging_channel_name:
+                    logging_channel = channel
+                    found = True
+                    break
+            if not found:
+                await ctx.send("Channel ``{}`` not found.".format(logging_channel_name))
+                return
+            configs["logging channel"] = str(logging_channel.id)
+            guilds[str(msg_guild_id)] = configs
             helpers.save_guilds(guilds)
             await ctx.send("Successfully set logging channel to {}!".format(logging_channel.mention))
         except Exception:
@@ -287,6 +287,12 @@ class Util(commands.Cog):
             logging_channel: TextChannel = msg_guild.get_channel(int(configs["logging channel"]))
             await logging_channel.send("``an error occurred\n{}``".format(traceback.format_exc()))
             traceback.print_exc()
+
+
+    @commands.Cog.listener()
+    @logger.catch
+    async def on_guild_remove(self, guild: Guild):
+        helpers.remove_guild(guild)
         
         
 
