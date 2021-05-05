@@ -13,7 +13,7 @@ for attachments as well.
 The bot can be invited using the following url: [INVITE SYSTER](https://discord.com/api/oauth2/authorize?client_id=838251109055332382&permissions=8&scope=bot)
 
 ### Setup
-1. Upon inviting the bot to your server, ensure that it has administrator permissions. The OAUTH invite url is configured with administrator permsssions already so there should not be any necessary changes to be made.
+1. Upon inviting the bot to your server, ensure that it has administrator permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made.
 
 1. Next, run the 'setup' command and type the name of the channel which you want this bot to log to (example: `%setup my-logging-channel`). If 'setup' is run without any channel name specified, it will create a new channel called 'sys-log' and configure its permissions so that only administrators have access to it. You are free to modify this channel as you see fit.
 
@@ -25,7 +25,7 @@ Whenever the bot detects an embedded video (which is what "crash GIFs" actually 
 Should you wish to change the logging channel of the bot at any point, you can do so using the 'setlog' command. (example: `%setlog new-logging-channel`) The command will do nothing if no channel name is provided.
 
 
-### Known issues and limitations
+### Known Issues and Limitations
 As mentioned earlier, this bot *only* targets embeds which contains GIF preview  
 videos that the discord client will play as soon as it is scrolled into view.  
 This is subject to change in future updates, where the bot will likely be able to target  
@@ -37,15 +37,25 @@ There is currently no way to view the states of your configurations without chan
 them. This will also be addressed in future udpates.
 
 During testing, "crash GIFs" would sneak past detection on rare occasions due to  
-what is most likely a race condition occurring on Discord's end.  If discord's  
-servers cannot create the embed fast enough, then the message object sent to SYSTER  
-may not contain any embed at all despite all other users being able to see it.  
+what is most likely a race condition occurring on Discord's end.  
 To get around this, the bot waits 0.9 seconds before re-fetching the message from  
 discord. So far this seems to have boosted the bot's catch rate to 100%, although  
 if "crash GIFs" do continue to leak through, I would appreciate it if you let me know.
+
+SYSTER also does not come equipped with administrative action against the author  
+of a "crash GIF". However, it provides clear information pointing to the author,  
+at which point it is up to the server admins/moderators to decide on what action  
+to take.
 
 ### For Developers
 Feel free to fork this repo/use my code in your project. You may also  
 open PRs if you have improvements/new features you would like to contribute.  
 If you do use this as part of your project, some credit would be much appreciated!
 
+#### Dependencies
+SYSTER depends on the following:  
+1. [discord.py](https://pypi.org/project/discord.py/)
+
+1. [pymp4parse](https://pypi.org/project/pymp4parse/)
+
+1. [python-dotenv](https://pypi.org/project/python-dotenv/)
