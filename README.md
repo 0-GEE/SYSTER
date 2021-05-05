@@ -47,6 +47,10 @@ of a "crash GIF". However, it provides clear information pointing to the author,
 at which point it is up to the server admins/moderators to decide on what action  
 to take.
 
+The 'help' command currently is not very helpful. This will also be addressed in  
+future updates. For now, refer to this document as it provides full coverage  
+of SYSTER's features.
+
 ### For Developers
 Feel free to fork this repo/use my code in your project. You may also  
 open PRs if you have improvements/new features you would like to contribute.  
