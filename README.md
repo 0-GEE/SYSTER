@@ -26,18 +26,18 @@ Should you wish to change the logging channel of the bot at any point, you can d
 
 
 ### Known issues and limitations
-As mentioned earlier, this bot *only* targets embeds which contains gif preview  
+As mentioned earlier, this bot *only* targets embeds which contains GIF preview  
 videos that the discord client will play as soon as it is scrolled into view.  
-This is subject to change very soon, as the bot will likely be able to target  
+This is subject to change in future updates, where the bot will likely be able to target  
 mp4 attachments that need to be clicked into as well. When initially developing  
-SYSTER, gif previews were give priority since experiencing a crash from them  
+SYSTER, GIF previews were given priority since experiencing a crash from them  
 is far harder to avoid and are therefore, much more disruptive.
 
 There is currently no way to view the states of your configurations without changing  
-them. This will likely also change very soon.
+them. This will also be addressed in future udpates.
 
 During testing, "crash GIFs" would sneak past detection on rare occasions due to  
-what is most likely a race condition occurring on discord's end.  If discord's  
+what is most likely a race condition occurring on Discord's end.  If discord's  
 servers cannot create the embed fast enough, then the message object sent to SYSTER  
 may not contain any embed at all despite all other users being able to see it.  
 To get around this, the bot waits 0.9 seconds before re-fetching the message from  
