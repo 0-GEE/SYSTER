@@ -6,10 +6,9 @@ maliciously sent to many servers, disrupting the experience of its members.
 Upon detection, SYSTER will delete the offending message, send a warning into
 the affected text channel, and send a report into a designated logging channel. 
 
-As of now, the bot only targets files which play **as soon as they are scrolled  
-into view**, meaning that mp4 attachments (which need to be clicked into in order  
-to be played) are ignored. In the near future I will likely implement detection and removal  
-for attachments as well.  
+As of now, the bot only targets files which play **as soon as they are scrolled into view**,  
+meaning that mp4 attachments (which need to be clicked into in order to be played) are ignored.  
+In future updates detection and removal of such attachments will also be added.  
 The bot can be invited using the following url: [INVITE SYSTER](https://discord.com/api/oauth2/authorize?client_id=838251109055332382&permissions=8&scope=bot)
 
 ### Setup
