@@ -63,3 +63,5 @@ SYSTER depends on the following:
 1. [pymp4parse](https://pypi.org/project/pymp4parse/)
 
 1. [python-dotenv](https://pypi.org/project/python-dotenv/)
+
+1. [loguru](https://pypi.org/project/loguru/)
