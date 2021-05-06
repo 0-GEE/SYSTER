@@ -62,7 +62,7 @@ Feel free to fork this repo/use my code in your project. You may also
 open PRs if you have improvements/new features you would like to contribute.  
 If you do use this as part of your project, some credit would be much appreciated!
 
-#### Dependencies
+### Dependencies
 SYSTER depends on the following:  
 1. [discord.py](https://pypi.org/project/discord.py/)
 
