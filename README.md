@@ -19,7 +19,11 @@ The bot can be invited using the following url: [INVITE SYSTER](https://discord.
 1. Congratulations! The bot is now configured and ready for use! From now on, it will automatically detect and delete messages with embedded "crash GIFs". If you wish to disable this feature, simply run 'toggle' (example: `%toggle`)  To re-enable, run the same command again.
 
 ### Other Commands
-Whenever the bot detects an embedded video (which is what "crash GIFs" actually are), it first checks the url's domain name against an internal list of domains deemed to be 'risky'. This is done to ensure that the bot does not attempt to donwload and parse files such as Twitch VODs and YouTube videos. The list can be added to and removed from with the 'add' (example: `%add sketchywebsite.com`) and 'remove' (example: `%remove sketchywebsite.com`) commands, respectively. These commands will do nothing if no domain name is provided. By default, "gfycat.com" is the only member of the list.
+1. Adding and Removing from Watchlist
+  * Whenever the bot detects an embedded video (which is what "crash GIFs" actually are), it first checks the url's domain name against an internal list of domains deemed to be 'risky'. This is done to ensure that the bot does not attempt to donwload and parse files such as Twitch VODs and YouTube videos. The list can be added to and removed from with the 'add' (example: `%add sketchywebsite.com`) and 'remove' (example: `%remove sketchywebsite.com`) commands, respectively. 
+  * To Add: `%add sketchywebsite.com`
+  * To Remove: `%remove sketchywebsite.com`
+  * These commands will do nothing if no domain name is provided. By default, "gfycat.com" is the only member of the list.
 
 Should you wish to change the logging channel of the bot at any point, you can do so using the 'setlog' command. (example: `%setlog new-logging-channel`) The command will do nothing if no channel name is provided.
 
