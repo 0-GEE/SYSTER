@@ -20,12 +20,15 @@ The bot can be invited using the following url: [INVITE SYSTER](https://discord.
 
 ### Other Commands
 1. Adding and Removing from Watchlist
-  * Whenever the bot detects an embedded video (which is what "crash GIFs" actually are), it first checks the url's domain name against an internal list of domains deemed to be 'risky'. This is done to ensure that the bot does not attempt to donwload and parse files such as Twitch VODs and YouTube videos. The list can be added to and removed from with the 'add' (example: `%add sketchywebsite.com`) and 'remove' (example: `%remove sketchywebsite.com`) commands, respectively. 
+  * Whenever the bot detects an embedded video (which is what "crash GIFs" actually are), it first checks the url's domain name against an internal list of domains deemed to be 'risky'. This is done to ensure that the bot does not attempt to donwload and parse files such as Twitch VODs and YouTube videos. The list can be added to and removed from with the 'add' and 'remove' commands respectively. 
   * To Add: `%add sketchywebsite.com`
   * To Remove: `%remove sketchywebsite.com`
   * These commands will do nothing if no domain name is provided. By default, "gfycat.com" is the only member of the list.
 
-Should you wish to change the logging channel of the bot at any point, you can do so using the 'setlog' command. (example: `%setlog new-logging-channel`) The command will do nothing if no channel name is provided.
+1. Change the Logging Channel
+ * The 'setlog' command changes the channel that the bot outputs the logs to. 
+ * To change the logging channel: `%setlog new-logging-channel`
+ * The command will do nothing if no channel name is provided.
 
 
 ### Known Issues and Limitations
