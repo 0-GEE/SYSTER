@@ -1,10 +1,5 @@
 # User Documentation
-SYSTER is a discord bot written in python with the sole purpose of detecting  
-and removing so-called "crash GIFs", corrupted GIFs that crash the client of
-the viewer. Due to the lack of solution to this problem, these GIFs have been
-maliciously sent to many servers, disrupting the experience of its members.
-Upon detection, SYSTER will delete the offending message, send a warning into
-the affected text channel, and send a report into a designated logging channel. 
+SYSTER is a discord bot written in python with the sole purpose of detecting and removing so-called "crash GIFs", corrupted GIFs that crash the client of the viewer. Due to the lack of solution to this problem, these GIFs have been maliciously sent to many servers, disrupting the experience of its members. Upon detection, SYSTER will delete the offending message, send a warning into the affected text channel, and send a report into a designated logging channel. 
 
 As of now, the bot only targets files which play **as soon as they are scrolled into view**,  
 meaning that mp4 attachments (which need to be clicked into in order to be played) are ignored.  
