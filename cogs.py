@@ -27,31 +27,31 @@ class Moderation(commands.Cog):
     async def on_message(self, msg: Message):
         if msg.author == self.bot.user:
             return
-        channel: discord.TextChannel = msg.channel
-        msg_guild: Guild = msg.guild
-        print("message's guild's id: {}".format(msg_guild.id))
-        msg_guild_id = msg_guild.id
-        guilds = helpers.load_guilds()
-        configs: dict = guilds.get(str(msg_guild_id), {})
-        if len(configs) == 0:
-            print("configs not set!")
-            return
-        if not bool(configs["crash protection"]):
-            print("crash protection is off (false)")
-            return
-        caution_list = list(configs["caution list"])
-        log_channel_id = int(configs["logging channel"])
-        print("logging channel's id: {}".format(log_channel_id))
-        time = datetime.now()
-        time = "{}:{}:{}".format(time.hour, time.minute, time.second)
-        print("at {} from {} in {}:\n  {}".format(time, msg.author, 
-                                                  channel.name, msg.content))
-        flagged = False
-
-        messageid = msg.id
-        await asyncio.sleep(0.9)
-        msg = await channel.fetch_message(messageid)
         try:
+            channel: discord.TextChannel = msg.channel
+            msg_guild: Guild = msg.guild
+            print("message's guild's id: {}".format(msg_guild.id))
+            msg_guild_id = msg_guild.id
+            guilds = helpers.load_guilds()
+            configs: dict = guilds.get(str(msg_guild_id), {})
+            if len(configs) == 0:
+                print("configs not set!")
+                return
+            if not bool(configs["crash protection"]):
+                print("crash protection is off (false)")
+                return
+            caution_list = list(configs["caution list"])
+            log_channel_id = int(configs["logging channel"])
+            print("logging channel's id: {}".format(log_channel_id))
+            time = datetime.now()
+            time = "{}:{}:{}".format(time.hour, time.minute, time.second)
+            print("at {} from {} in {}:\n  {}".format(time, msg.author, 
+                                                    channel.name, msg.content))
+            flagged = False
+
+            messageid = msg.id
+            await asyncio.sleep(0.9)
+            msg = await channel.fetch_message(messageid)
             embeds: list[Embed] = msg.embeds
             print("embeds:\n  {}".format(str(embeds)))
             for embed in embeds:
@@ -92,43 +92,35 @@ class Moderation(commands.Cog):
 
         except Exception:
             log_channel: TextChannel = msg_guild.get_channel(log_channel_id)
-            await log_channel.send("``{}``".format(traceback.format_exc()))
+            await log_channel.send("``an error occurred.``")
             traceback.print_exc()
 
     @commands.command(name='toggle', help='toggles crash gif protection')
     @logger.catch
     async def toggle(self, ctx: commands.Context):
         auth: discord.Member = ctx.author
-        channel: discord.TextChannel = ctx.channel
         if not helpers.is_admin(auth):
             await ctx.send("you do not have permission for this command.")
             return
-        msg_guild: Guild = ctx.guild
-        msg_guild_id = msg_guild.id
-        guilds = helpers.load_guilds()
-        configs: dict = guilds.get(str(msg_guild_id), {})  
-        if len(configs) == 0:
-            await ctx.send("Please run 'Setup' command and try again")
-            return
-        log_channel_id = int(configs["logging channel"])
-        if configs["crash protection"]:
-            guilds[str(msg_guild_id)]["crash protection"] = False
-            try:
+        try:
+            msg_guild: Guild = ctx.guild
+            msg_guild_id = msg_guild.id
+            guilds = helpers.load_guilds()
+            configs: dict = guilds.get(str(msg_guild_id), {})  
+            if len(configs) == 0:
+                await ctx.send("Please run 'Setup' command and try again")
+                return
+            if configs["crash protection"]:
+                guilds[str(msg_guild_id)]["crash protection"] = False
                 helpers.save_guilds(guilds)
                 await ctx.send("Crash gif protection disabled!")
-            except Exception:
-                logging_channel: TextChannel = msg_guild.get_channel(log_channel_id)
-                await logging_channel.send("``{}``".format(traceback.format_exc()))
-                await channel.send("``an error occurred.``")
-            return
-        guilds[str(msg_guild_id)]["crash protection"] = True
-        try:
+                return
+            guilds[str(msg_guild_id)]["crash protection"] = True
             helpers.save_guilds(guilds)
             await ctx.send("Crash gif protection enabled!")
         except Exception:
-            logging_channel: TextChannel = msg_guild.get_channel(log_channel_id)
-            await logging_channel.send("``{}``".format(traceback.format_exc()))
-            await channel.send("``an error occurred.``")
+            await ctx.send("``an error occurred.``")
+            traceback.print_exc()
 
 class Util(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
@@ -180,7 +172,7 @@ class Util(commands.Cog):
             await ctx.send("Setup success! I am now ready for use in ``{}``".format(msg_guild.name))
         except Exception:
             traceback.print_exc()
-            await ctx.send("``an error occured.\n{}``".format(traceback.format_exc()))
+            await ctx.send("``an error occured.``")
 
     @commands.command(name='setlog', help='set logging channel for the bot')
     @logger.catch
@@ -217,7 +209,7 @@ class Util(commands.Cog):
             helpers.save_guilds(guilds)
             await ctx.send("Successfully set logging channel to {}!".format(logging_channel.mention))
         except Exception:
-            await ctx.send("``an error occured.\n{}``".format(traceback.format_exc()))
+            await ctx.send("``an error occured.``")
             traceback.print_exc()
 
     @commands.command(name='add', help='add a domain to the risk list')
@@ -249,9 +241,7 @@ class Util(commands.Cog):
             helpers.save_guilds(guilds)
             await ctx.send("Succesfully added ``{}`` to the risk list!".format(new_domain))
         except Exception:
-            logging_channel: TextChannel = msg_guild.get_channel(int(configs["logging channel"]))
-            await logging_channel.send("``and error occurred.\n{}``".format(traceback.format_exc()))
-            await ctx.send("something went wrong. Check the log channel for details")
+            await ctx.send("``an error occurred.``")
             traceback.print_exc()
 
     @commands.command(name='remove', help='remove a domain from the risk list')
@@ -279,13 +269,12 @@ class Util(commands.Cog):
                 await ctx.send("Succesfully removed ``{}`` from the risk list!".format(target))
             except Exception:
                 await ctx.send("domain ``{}`` not found in risk list".format(target))
+                return
             configs["caution list"] = caution_list
             guilds[str(msg_guild_id)] = configs
             helpers.save_guilds(guilds)
         except Exception:
-            await ctx.send("something went wrong. Check log channel for details")
-            logging_channel: TextChannel = msg_guild.get_channel(int(configs["logging channel"]))
-            await logging_channel.send("``an error occurred\n{}``".format(traceback.format_exc()))
+            await ctx.send("``an error occurred.``")
             traceback.print_exc()
 
 
