@@ -14,12 +14,12 @@ The bot can be invited using the following url: [INVITE SYSTER](https://discord.
 ### Setup
 1. Upon inviting the bot to your server, ensure that it has administrator permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made.
 
-1. Next, run the 'setup' command and type the name of the channel which you want this bot to log to (example: `%setup my-logging-channel`). If 'setup' is run without any channel name specified, it will create a new channel called 'sys-log' and configure its permissions so that only administrators have access to it. You are free to modify this channel as you see fit.
+1. Next, run the 'setup' command and type the name of the channel which you want this bot to log to (example: `%setup my-logging-channel`). If 'setup' is run without any channel name provided, it will create a new channel called 'sys-log' and configure its permissions so that only administrators have access to it. You are free to modify this channel as you see fit.
 
 1. Congratulations! The bot is now configured and ready for use! From now on, it will automatically detect and delete messages with embedded "crash GIFs". If you wish to disable this feature, simply run 'toggle' (example: `%toggle`)  To re-enable, run the same command again.
 
-### Commands
-Whenever the bot detects an embedded video (which is what "crash GIFs" actually are), it first checks the url's domain name against an internal list of domains deemed to be 'risky'. This so-called 'risk-list' can be added to and removed from with the 'add' (example: `%add sketchywebsite.com`) and 'remove' (example: `%remove sketchywebsite.com`) commands, respectively. The command will do nothing if no domain name is provided. By default, "gfycat.com" is the only member of the list.
+### Other Commands
+Whenever the bot detects an embedded video (which is what "crash GIFs" actually are), it first checks the url's domain name against an internal list of domains deemed to be 'risky'. This is done to ensure that the bot does not attempt to donwload and parse files such as Twitch VODs and YouTube videos. The list can be added to and removed from with the 'add' (example: `%add sketchywebsite.com`) and 'remove' (example: `%remove sketchywebsite.com`) commands, respectively. These commands will do nothing if no domain name is provided. By default, "gfycat.com" is the only member of the list.
 
 Should you wish to change the logging channel of the bot at any point, you can do so using the 'setlog' command. (example: `%setlog new-logging-channel`) The command will do nothing if no channel name is provided.
 
