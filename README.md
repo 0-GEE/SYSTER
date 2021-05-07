@@ -12,6 +12,10 @@ Should you prefer setting up permissions manually, then for all channels you wan
 * read messages
 * send messages
 * delete messages 
+
+For all channels you plan to run SYSTER commands in, it must be able to:
+* read messages
+* send messages
  
 For an existing logging channel, SYSTER must be able to:
 * send messages  
