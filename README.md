@@ -6,9 +6,21 @@ As of now, the bot only targets files which play **as soon as they are scrolled 
 PFP credit: [まさよ🍬Fantia](https://www.pixiv.net/en/users/14325286)
 
 ### Setup
-1. Upon inviting the bot to your server, ensure that it has administrator permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made.
+1. Upon inviting the bot to your server, ensure that it sufficient permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made.  
 
-1. Next, run the 'setup' command and type the name of the channel which you want this bot to log to (example: `%setup my-logging-channel`). If 'setup' is run without any channel name provided, it will create a new channel called 'sys-log' and configure its permissions so that only administrators have access to it. You are free to modify this channel as you see fit.
+Should you prefer setting up permissions manually, then for all channels you want SYSTER to monitor, it must be able to:
+* read messages
+* send messages
+* delete messages 
+ 
+For an existing logging channel, SYSTER must be able to:
+* send messages  
+
+If you don't have a logging channel, SYSTER must be able to:
+* create and modify text channels
+
+
+2. Next, run the 'setup' command and type the name of the channel which you want this bot to log to (example: `%setup my-logging-channel`). If 'setup' is run without any channel name provided, it will create a new channel called 'sys-log' and configure its permissions so that only administrators have access to it. You are free to modify this channel as you see fit.
 
 1. Congratulations! The bot is now configured and ready for use! From now on, it will automatically detect and delete messages with embedded "crash GIFs". If you wish to disable this feature, simply run 'toggle' (example: `%toggle`)  To re-enable, run the same command again.
 
@@ -19,7 +31,7 @@ PFP credit: [まさよ🍬Fantia](https://www.pixiv.net/en/users/14325286)
   * To Remove: `%remove sketchywebsite.com`
   * These commands will do nothing if no domain name is provided. By default, "gfycat.com" is the only member of the list.
 
-1. Change the Logging Channel
+2. Change the Logging Channel
  * The 'setlog' command changes the channel that the bot outputs the logs to. 
  * To change the logging channel: `%setlog new-logging-channel`
  * The command will do nothing if no channel name is provided.
