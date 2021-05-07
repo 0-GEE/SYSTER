@@ -3,6 +3,8 @@ SYSTER is a discord bot written in python with the sole purpose of detecting and
 
 As of now, the bot only targets files which play **as soon as they are scrolled into view**, meaning that mp4 attachments (which need to be clicked into in order to be played) are ignored. In future updates detection and removal of such attachments will also be added. The bot can be invited using the following url: [INVITE SYSTER](https://discord.com/api/oauth2/authorize?client_id=838251109055332382&permissions=8&scope=bot)
 
+PFP credit: [まさよ🍬Fantia](https://www.pixiv.net/en/users/14325286)
+
 ### Setup
 1. Upon inviting the bot to your server, ensure that it has administrator permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made.
 
