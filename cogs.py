@@ -162,7 +162,7 @@ class Util(commands.Cog):
                                                                                    reason="log channel was not specified at 'setup' command call")
                 msg_guild_roles: list[Role] = msg_guild.roles
                 for role in msg_guild_roles:
-                    if not role.permissions.administrator:
+                    if not role.permissions.view_audit_log:
                         await logging_channel.set_permissions(target=role, 
                                                               read_messages=False,
                                                               send_messages=False)

@@ -6,7 +6,7 @@ db_file = "servers.json"
 
 def is_authorized(user: Member):
     perms = user.guild_permissions
-    if perms.ban_members:
+    if perms.view_audit_log:
         return True
     return False
 
