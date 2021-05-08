@@ -18,7 +18,7 @@ PFP credit: [まさよ🍬Fantia](https://www.pixiv.net/en/users/14325286)
 
 
 
-2. Next, run the 'setup' command and type the name of the channel which you want this bot to log to (example: `%setup my-logging-channel`). If 'setup' is run without any channel name provided, it will create a new channel called 'sys-log' and configure its permissions so that only administrators have access to it. You are free to modify this channel as you see fit.
+2. Next, run the 'setup' command and type the name of the channel which you want this bot to log to (example: `%setup my-logging-channel`). If 'setup' is run without any channel name provided, it will create a new channel called 'sys-log' and configure its permissions so that only itself and members with access to your server's audit log have access to it. You are free to modify this channel as you see fit.
 
 1. Congratulations! The bot is now configured and ready for use! From now on, it will automatically detect and delete messages with embedded "crash GIFs". If you wish to disable this feature, simply run 'toggle' (example: `%toggle`)  To re-enable, run the same command again.
 
