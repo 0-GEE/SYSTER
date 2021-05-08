@@ -4,9 +4,9 @@ from discord.member import Member
 
 db_file = "servers.json"
 
-def is_admin(user: Member):
+def is_authorized(user: Member):
     perms = user.guild_permissions
-    if perms.administrator:
+    if perms.ban_members:
         return True
     return False
 

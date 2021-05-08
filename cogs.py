@@ -99,7 +99,7 @@ class Moderation(commands.Cog):
     @logger.catch
     async def toggle(self, ctx: commands.Context):
         auth: discord.Member = ctx.author
-        if not helpers.is_admin(auth):
+        if not helpers.is_authorized(auth):
             await ctx.send("you do not have permission for this command.")
             return
         try:
@@ -130,7 +130,7 @@ class Util(commands.Cog):
     @logger.catch
     async def setup(self, ctx: Context, *args):
         auth: Member = ctx.author
-        if not helpers.is_admin(auth):
+        if not helpers.is_authorized(auth):
             await ctx.send("you do not have permission for this command")
             return
         try:
@@ -178,7 +178,7 @@ class Util(commands.Cog):
     @logger.catch
     async def setlog(self, ctx: Context, *args):
         auth: Member = ctx.author
-        if not helpers.is_admin(auth):
+        if not helpers.is_authorized(auth):
             await ctx.send("You do not have permission for this command.")
             return
         if len(args) < 1:
@@ -216,7 +216,7 @@ class Util(commands.Cog):
     @logger.catch
     async def add(self, ctx: Context, *args):
         auth: Member = ctx.author
-        if not helpers.is_admin(auth):
+        if not helpers.is_authorized(auth):
             await ctx.send("You do not have permission for this command.")
             return
         if len(args) < 1:
@@ -248,7 +248,7 @@ class Util(commands.Cog):
     @logger.catch
     async def remove(self, ctx: Context, *args):
         auth: Member = ctx.author
-        if not helpers.is_admin(auth):
+        if not helpers.is_authorized(auth):
             await ctx.send("You do not have permission for this command")
             return
         if len(args) == 0:
