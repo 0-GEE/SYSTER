@@ -5,7 +5,9 @@ As of now, the bot only targets files which play **as soon as they are scrolled 
 
 PFP credit: [まさよ🍬Fantia](https://www.pixiv.net/en/users/14325286)
 
-### Setup
+### Setup  
+*All commands require the 'view audit log' permission to use. This is to limit command usage to moderators and admins.*
+
 1. Upon inviting the bot to your server, ensure that it sufficient permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made.  
 
 Should you prefer setting up permissions manually, then for all channels you want SYSTER to monitor, it must be able to:
@@ -32,6 +34,8 @@ If you don't have a logging channel, SYSTER must be able to:
 1. Congratulations! The bot is now configured and ready for use! From now on, it will automatically detect and delete messages with embedded "crash GIFs". If you wish to disable this feature, simply run 'toggle' (example: `%toggle`)  To re-enable, run the same command again.
 
 ### Other Commands
+*All commands require the 'view audit log' permission to use. This is to limit command usage to moderators and admins.*
+
 1. Adding and Removing from Watchlist
   * Whenever the bot detects an embedded video (which is what "crash GIFs" actually are), it first checks the url's domain name against an internal list of domains deemed to be 'risky'. This is done to ensure that the bot does not attempt to donwload and parse files such as Twitch VODs and YouTube videos. The list can be added to and removed from with the 'add' and 'remove' commands respectively. 
   * To Add: `%add sketchywebsite.com`
