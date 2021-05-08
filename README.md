@@ -8,25 +8,14 @@ PFP credit: [まさよ🍬Fantia](https://www.pixiv.net/en/users/14325286)
 ### Setup  
 *All commands require the 'view audit log' permission to use. This is to limit command usage to moderators and admins.*
 
-1. Upon inviting the bot to your server, ensure that it sufficient permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made.  
+1. Upon inviting the bot to your server, ensure that it sufficient permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made. Should you prefer setting up permissions manually, here are the *minimum* permissions SYSTER requires to function:
+* View Channels
+* Manage Channels
+* Send Messages
+* Embed Links
+* Manage Messages
+* Read Message History
 
-Should you prefer setting up permissions manually, then for all channels you want SYSTER to monitor, it must be able to:
-* read messages and message history
-* send messages
-* delete messages
-
-For all channels you plan to run SYSTER commands in, it must be able to:
-* read messages and message history
-* send messages
- 
-For an existing logging channel, SYSTER must be able to:
-* send messages
-* send embeds  
-
-If you don't have a logging channel, SYSTER must be able to:
-* create and manage channels
-* send messages in the new channel
-* send embeds in the new channel
 
 
 2. Next, run the 'setup' command and type the name of the channel which you want this bot to log to (example: `%setup my-logging-channel`). If 'setup' is run without any channel name provided, it will create a new channel called 'sys-log' and configure its permissions so that only administrators have access to it. You are free to modify this channel as you see fit.
