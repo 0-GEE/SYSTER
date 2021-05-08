@@ -1,14 +1,14 @@
 # User Documentation
-SYSTER is a discord bot written in python with the sole purpose of detecting and removing so-called "crash GIFs", corrupted GIFs that crash the client of the viewer. Due to the lack of solution to this problem, these GIFs have been maliciously sent to many servers, disrupting the experience of its members. Upon detection, SYSTER will delete the offending message, send a warning into the affected text channel, and send a report into a designated logging channel. 
+CrashGuard (formerly known as SYSTER) is a discord bot written in python with the sole purpose of detecting and removing so-called "crash GIFs", corrupted GIFs that crash the client of the viewer. Due to the lack of solution to this problem, these GIFs have been maliciously sent to many servers, disrupting the experience of its members. Upon detection, CrashGuard will delete the offending message, send a warning into the affected text channel, and send a report into a designated logging channel. 
 
-As of now, the bot only targets files which play **as soon as they are scrolled into view**, meaning that mp4 attachments (which need to be clicked into in order to be played) are ignored. In future updates detection and removal of such attachments will also be added. The bot can be invited using the following url: [INVITE SYSTER](https://discord.com/api/oauth2/authorize?client_id=838251109055332382&permissions=8&scope=bot)
+As of now, the bot only targets files which play **as soon as they are scrolled into view**, meaning that mp4 attachments (which need to be clicked into in order to be played) are ignored. In future updates detection and removal of such attachments will also be added. The bot can be invited using the following url: [INVITE CrashGuard](https://discord.com/api/oauth2/authorize?client_id=838251109055332382&permissions=8&scope=bot)
 
 PFP credit: [まさよ🍬Fantia](https://www.pixiv.net/en/users/14325286)
 
 ### Setup  
 *All commands require the 'view audit log' permission to use. This is to limit command usage to moderators and admins.*
 
-1. Upon inviting the bot to your server, ensure that it sufficient permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made. Should you prefer setting up permissions manually, here are the *minimum* permissions SYSTER requires to function:
+1. Upon inviting the bot to your server, ensure that it sufficient permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made. Should you prefer setting up permissions manually, here are the *minimum* permissions CrashGuard requires to function:
 * View Channels
 * Manage Channels
 * Send Messages
@@ -42,7 +42,7 @@ As mentioned earlier, this bot *only* targets embeds which contains GIF preview
 videos that the discord client will play as soon as it is scrolled into view.  
 This is subject to change in future updates, where the bot will likely be able to target  
 mp4 attachments that need to be clicked into as well. When initially developing  
-SYSTER, GIF previews were given priority since experiencing a crash from them  
+CrashGuard, GIF previews were given priority since experiencing a crash from them  
 is far harder to avoid and are therefore, much more disruptive.
 
 There is currently no way to view the states of your configurations without changing  
@@ -54,14 +54,14 @@ To get around this, the bot waits 0.9 seconds before re-fetching the message fro
 discord. So far this seems to have boosted the bot's catch rate to 100%, although  
 if "crash GIFs" do continue to leak through, I would appreciate it if you let me know.
 
-SYSTER also does not come equipped with administrative action against the author  
+CrashGuard also does not come equipped with administrative action against the author  
 of a "crash GIF". However, it provides clear information pointing to the author,  
 at which point it is up to the server admins/moderators to decide on what action  
 to take.
 
 The 'help' command currently is not very helpful. This will also be addressed in  
 future updates. For now, refer to this document as it provides full coverage  
-of SYSTER's features.
+of CrashGuard's features.
 
 ### For Developers
 Feel free to fork this repo/use my code in your project. You may also  
@@ -69,7 +69,7 @@ open PRs if you have improvements/new features you would like to contribute.
 If you do use this as part of your project, some credit would be much appreciated!
 
 ### Dependencies
-SYSTER depends on the following:  
+CrashGuard depends on the following:  
 1. [discord.py](https://pypi.org/project/discord.py/)
 
 1. [pymp4parse](https://pypi.org/project/pymp4parse/)
