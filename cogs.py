@@ -10,6 +10,7 @@ from discord.ext.commands.context import Context
 from discord.guild import Guild
 from discord.member import Member
 from discord.message import Message
+from discord.permissions import PermissionOverwrite
 from discord.role import Role
 import requests
 import pymp4parse
@@ -158,14 +159,20 @@ class Util(commands.Cog):
                     return
                 configs["logging channel"] = str(logging_channel.id)
             else:
-                logging_channel: TextChannel = await msg_guild.create_text_channel(name='sys-log', 
-                                                                                   reason="log channel was not specified at 'setup' command call")
                 msg_guild_roles: list[Role] = msg_guild.roles
+                overwrites = {}
                 for role in msg_guild_roles:
-                    if not role.permissions.view_audit_log:
-                        await logging_channel.set_permissions(target=role, 
-                                                              read_messages=False,
-                                                              send_messages=False)
+                    if role.permissions.view_audit_log:
+                        overwrites[role] = PermissionOverwrite(read_messages=True,
+                                                               send_messages=True)
+                    else:
+                        overwrites[role] = PermissionOverwrite(read_messages=False,
+                                                               send_messages=False)
+                overwrites[msg_guild.me] = PermissionOverwrite(read_messages=True,
+                                                               send_messages=True)
+                logging_channel: TextChannel = await msg_guild.create_text_channel(name='sys-log', 
+                                                                                   reason="log channel was not specified at 'setup' command call",
+                                                                                   overwrites=overwrites)
                 configs["logging channel"] = str(logging_channel.id)
             guilds[str(msg_guild_id)] = configs
             helpers.save_guilds(guilds)
