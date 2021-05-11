@@ -10,11 +10,13 @@ PFP credit: [まさよ🍬Fantia](https://www.pixiv.net/en/users/14325286)
 
 1. Upon inviting the bot to your server, ensure that it sufficient permissions. The OAUTH2 invite url is configured with administrator permissions already so there should not be any necessary changes to be made. Should you prefer setting up permissions manually, here are the *minimum* permissions CrashGuard requires to function:
 * View Channels
-* Manage Channels
 * Send Messages
 * Embed Links
 * Manage Messages
 * Read Message History
+
+If you want CrashGuard to create its own logging channel, it additionally requires:
+* Manage Channels
 
 
 
