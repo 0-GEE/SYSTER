@@ -18,6 +18,7 @@ PFP credit: [まさよ🍬Fantia](https://www.pixiv.net/en/users/14325286)
 If you want CrashGuard to create its own logging channel, it additionally requires:
 * Manage Channels
 
+*make sure CrashGuard's role is in a higher position in the roles list than that of all non-mod/non-admin user roles*
 
 
 2. Next, run the 'setup' command and type the name of the channel which you want this bot to log to (example: `%setup my-logging-channel`). If 'setup' is run without any channel name provided, it will create a new channel called 'sys-log' and configure its permissions so that only itself and members with access to your server's audit log have access to it. You are free to modify this channel as you see fit.
