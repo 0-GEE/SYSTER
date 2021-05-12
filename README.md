@@ -15,7 +15,7 @@ PFP credit: [まさよ🍬Fantia](https://www.pixiv.net/en/users/14325286)
 * Manage Messages
 * Read Message History
 
-*if you use channel-specific overrides, CrashGuard must have the above permissions for each channel you want it to monitor*
+*if you use channel-specific overrides, CrashGuard must have the above permissions for each channel you want it to monitor. For your logging channel, it requires all of the above except for Manage Messages and Read Message History*
 
 If you want CrashGuard to create its own logging channel, it additionally requires:
 * Manage Channels
