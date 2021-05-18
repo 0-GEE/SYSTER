@@ -52,7 +52,10 @@ class Moderation(commands.Cog):
 
             messageid = msg.id
             await asyncio.sleep(0.9)
-            msg = await channel.fetch_message(messageid)
+            try:
+                msg = await channel.fetch_message(messageid)
+            except discord.errors.NotFound:
+                return
             embeds: list[Embed] = msg.embeds
             print("embeds:\n  {}".format(str(embeds)))
             for embed in embeds:
