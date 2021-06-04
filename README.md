@@ -31,7 +31,7 @@ If you want CrashGuard to create its own logging channel, it additionally requir
 *All commands require the user to have the 'view audit log' permission. This is to limit command usage to moderators and admins.*
 
 1. Adding and Removing from Watchlist
-  * Whenever the bot detects an embedded video (which is what "crash GIFs" actually are), it first checks the url's domain name against an internal list of domains deemed to be 'risky'. This is done to ensure that the bot does not attempt to donwload and parse files such as Twitch VODs and YouTube videos. The list can be added to and removed from with the 'add' and 'remove' commands respectively. 
+  * Whenever the bot detects an embedded video (which is what "crash GIFs" actually are), it first checks the url's domain name against an internal list of domains deemed to be 'risky'. This is done to ensure that the bot does not attempt to download and parse files such as Twitch VODs and YouTube videos. The list can be added to and removed from with the 'add' and 'remove' commands respectively. 
   * To Add: `%add sketchywebsite.com`
   * To Remove: `%remove sketchywebsite.com`
   * These commands will do nothing if no domain name is provided. By default, "gfycat.com" is the only member of the list.
